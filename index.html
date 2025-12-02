@@ -57,6 +57,7 @@ th:hover { background: #e0e0e0; }
 <table id="projectsTable"><thead><tr><th data-col="projectTitle">Project Title</th><th data-col="acronym">Acronym</th><th data-col="identifier">Identifier</th><th data-col="scope">Scope</th><th data-col="status">Status</th><th data-col="startDate">Start date</th><th data-col="endDate">End date</th><th data-col="siteContext">Site Context</th><th data-col="specificSite">Specific Site</th><th data-col="temporalRange">Temporal Range</th><th data-col="organization">Organization</th><th data-col="authority">Authority</th><th data-col="responsible">Responsible</th><th data-col="funder">Funder</th><th data-col="field">Field</th><th data-col="activities">Activities</th><th data-col="materialFocus">Material Focus</th><th data-col="generatedOutputs">Generated outputs</th><th class="hidden">Actions</th></tr></thead><tbody></tbody></table>
 <script>
 const PASSWORD = 'research2025';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwjif1ocW3f7UHBhFbhgUyMyhiRYNbHiFTgsxvVbJ_2Jhjo8oGdrbwsNG65tUCQA_Z/exec';
 let isEditMode = false;
 let data = [];
 let editingIndex = null;
@@ -77,23 +78,26 @@ status.textContent = '\u2717 Incorrect password';
 status.style.color = 'red';
 }
 }
-function loadData() {
-try {
-const stored = localStorage.getItem('projectsData');
-if (stored) {
-data = JSON.parse(stored);
-renderTable(data);
-}
-} catch (e) {
-console.log('No stored data found');
-}
+async function loadData() {
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URL);
+    const result = await response.json();
+    data = result;
+    renderTable(data);
+  } catch (e) {
+    console.log('Error loading data from Google Sheets:', e);
+  }
 }
 function saveData() {
-try {
-localStorage.setItem('projectsData', JSON.stringify(data));
-} catch (e) {
-console.error('Error saving data:', e);
-}
+  try {
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (e) {
+    console.error('Error saving data to Google Sheets:', e);
+  }
 }
 function renderTable(rows) {
 tbody.innerHTML = '';
