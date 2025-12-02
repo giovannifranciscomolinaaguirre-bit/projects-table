@@ -7,14 +7,17 @@
     body { font-family: Arial, sans-serif; margin: 20px; }
     h1 { margin-bottom: 10px; }
     form { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; }
-    .field-row { display: flex; flex-wrap: wrap; margin-bottom: 6px; }
-    .field-row label { width: 160px; font-size: 12px; }
+    .field-row { display: flex; flex-wrap: wrap; margin-bottom: 6px; align-items: center; }
+    .field-row label { width: 160px; font-size: 12px; display: flex; align-items: center; gap: 5px; }
     .field-row input { flex: 1; min-width: 160px; font-size: 12px; padding: 3px 4px; }
     button { margin-top: 8px; padding: 6px 10px; }
     table { border-collapse: collapse; width: 100%; font-size: 12px; }
     th, td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; }
     th { cursor: pointer; background: #f0f0f0; white-space: nowrap; }
     th:hover { background: #e0e0e0; }
+    .tooltip-icon { display: inline-block; width: 16px; height: 16px; background: #007bff; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 10px; font-weight: bold; cursor: help; position: relative; }
+    .tooltip-icon:hover::after { content: attr(data-tooltip); position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 8px 12px; border-radius: 4px; font-size: 11px; white-space: nowrap; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .tooltip-icon:hover::before { content: ''; position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); border: 6px solid #333; border-color: #333 transparent transparent transparent; z-index: 1000; }
   </style>
 </head>
 <body>
@@ -23,75 +26,75 @@
 
   <form id="projectForm">
     <div class="field-row">
-      <label for="projectTitle">Project Title</label>
+      <label for="projectTitle"><span class="tooltip-icon" data-tooltip="Full name or title of the research project">ⓘ</span> Project Title</label>
       <input type="text" id="projectTitle" required />
     </div>
     <div class="field-row">
-      <label for="acronym">Acronym</label>
+      <label for="acronym"><span class="tooltip-icon" data-tooltip="Short abbreviated form of the project name">ⓘ</span> Acronym</label>
       <input type="text" id="acronym" />
     </div>
     <div class="field-row">
-      <label for="identifier">Identifier</label>
+      <label for="identifier"><span class="tooltip-icon" data-tooltip="Unique identifier or code assigned to the project">ⓘ</span> Identifier</label>
       <input type="text" id="identifier" />
     </div>
     <div class="field-row">
-      <label for="scope">Scope</label>
+      <label for="scope"><span class="tooltip-icon" data-tooltip="Geographic or thematic reach: local, national, international">ⓘ</span> Scope</label>
       <input type="text" id="scope" />
     </div>
     <div class="field-row">
-      <label for="status">Status</label>
+      <label for="status"><span class="tooltip-icon" data-tooltip="Current state: planning, ongoing, completed, published">ⓘ</span> Status</label>
       <input type="text" id="status" />
     </div>
     <div class="field-row">
-      <label for="startDate">Start date</label>
+      <label for="startDate"><span class="tooltip-icon" data-tooltip="Project initiation date (YYYY-MM-DD)">ⓘ</span> Start date</label>
       <input type="text" id="startDate" placeholder="YYYY-MM-DD" />
     </div>
     <div class="field-row">
-      <label for="endDate">End date</label>
+      <label for="endDate"><span class="tooltip-icon" data-tooltip="Project completion or expected end date (YYYY-MM-DD)">ⓘ</span> End date</label>
       <input type="text" id="endDate" placeholder="YYYY-MM-DD" />
     </div>
     <div class="field-row">
-      <label for="siteContext">Site Context</label>
+      <label for="siteContext"><span class="tooltip-icon" data-tooltip="Broader geographic or historical context of the site">ⓘ</span> Site Context</label>
       <input type="text" id="siteContext" />
     </div>
     <div class="field-row">
-      <label for="specificSite">Specific Site</label>
+      <label for="specificSite"><span class="tooltip-icon" data-tooltip="Exact location, archaeological site, or specific study area">ⓘ</span> Specific Site</label>
       <input type="text" id="specificSite" />
     </div>
     <div class="field-row">
-      <label for="temporalRange">Temporal Range</label>
+      <label for="temporalRange"><span class="tooltip-icon" data-tooltip="Historical period or chronological range studied">ⓘ</span> Temporal Range</label>
       <input type="text" id="temporalRange" />
     </div>
     <div class="field-row">
-      <label for="organization">Organization</label>
+      <label for="organization"><span class="tooltip-icon" data-tooltip="Main institution or organization conducting the project">ⓘ</span> Organization</label>
       <input type="text" id="organization" />
     </div>
     <div class="field-row">
-      <label for="authority">Authority</label>
+      <label for="authority"><span class="tooltip-icon" data-tooltip="Governmental or regulatory body overseeing the project">ⓘ</span> Authority</label>
       <input type="text" id="authority" />
     </div>
     <div class="field-row">
-      <label for="responsible">Responsible</label>
+      <label for="responsible"><span class="tooltip-icon" data-tooltip="Lead researcher or project director">ⓘ</span> Responsible</label>
       <input type="text" id="responsible" />
     </div>
     <div class="field-row">
-      <label for="funder">Funder</label>
+      <label for="funder"><span class="tooltip-icon" data-tooltip="Organization or source providing financial support">ⓘ</span> Funder</label>
       <input type="text" id="funder" />
     </div>
     <div class="field-row">
-      <label for="field">Field</label>
+      <label for="field"><span class="tooltip-icon" data-tooltip="Academic discipline or research field (archaeology, history, economics, etc.)">ⓘ</span> Field</label>
       <input type="text" id="field" />
     </div>
     <div class="field-row">
-      <label for="activities">Activities</label>
+      <label for="activities"><span class="tooltip-icon" data-tooltip="Main research activities or methodologies employed">ⓘ</span> Activities</label>
       <input type="text" id="activities" />
     </div>
     <div class="field-row">
-      <label for="materialFocus">Material Focus</label>
+      <label for="materialFocus"><span class="tooltip-icon" data-tooltip="Primary objects, artifacts, or subject matter of study">ⓘ</span> Material Focus</label>
       <input type="text" id="materialFocus" />
     </div>
     <div class="field-row">
-      <label for="generatedOutputs">Generated outputs</label>
+      <label for="generatedOutputs"><span class="tooltip-icon" data-tooltip="Deliverables: publications, databases, exhibitions, reports">ⓘ</span> Generated outputs</label>
       <input type="text" id="generatedOutputs" />
     </div>
     <button type="submit">Add project</button>
