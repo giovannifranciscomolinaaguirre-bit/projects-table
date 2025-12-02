@@ -1,245 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Projects Sheet</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    h1 { margin-bottom: 10px; }
-    form { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; }
-    .field-row { display: flex; flex-wrap: wrap; margin-bottom: 6px; align-items: center; }
-    .field-row label { width: 160px; font-size: 12px; display: flex; align-items: center; gap: 5px; }
-    .field-row input { flex: 1; min-width: 160px; font-size: 12px; padding: 3px 4px; }
-    button { margin-top: 8px; padding: 6px 10px; }
-    table { border-collapse: collapse; width: 100%; font-size: 12px; }
-    th, td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; }
-    th { cursor: pointer; background: #f0f0f0; white-space: nowrap; }
-    th:hover { background: #e0e0e0; }
-    .tooltip-icon { display: inline-block; width: 16px; height: 16px; background: #007bff; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 10px; font-weight: bold; cursor: help; position: relative; }
-    .tooltip-icon:hover::after { content: attr(data-tooltip); position: absolute; bottom: 125%; left: 0; background: #333; color: white; padding: 8px 12px; border-radius: 4px; font-size: 11px; white-space: normal; max-width: 250px; width: max-content; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-    .tooltip-icon:hover::before { content: ''; position: absolute; bottom: 120%; left: 8px; border: 6px solid transparent; border-top-color: #333; z-index: 1000; }
-  </style>
+<meta charset="UTF-8" />
+<title>Projects Sheet</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+h1 { margin-bottom: 10px; }
+.password-section { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; }
+.password-section input { padding: 5px; margin-right: 10px; }
+.password-section button { padding: 5px 15px; }
+form { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; }
+.field-row { display: flex; flex-wrap: wrap; margin-bottom: 6px; align-items: center; }
+.field-row label { width: 160px; font-size: 12px; display: flex; align-items: center; gap: 5px; }
+.field-row input { flex: 1; min-width: 160px; font-size: 12px; padding: 3px 4px; }
+button { margin-top: 8px; padding: 6px 10px; }
+.action-btn { padding: 3px 8px; margin-right: 5px; font-size: 11px; }
+.edit-btn { background: #4CAF50; color: white; border: none; cursor: pointer; }
+.delete-btn { background: #f44336; color: white; border: none; cursor: pointer; }
+table { border-collapse: collapse; width: 100%; font-size: 12px; }
+th, td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; }
+th { cursor: pointer; background: #f0f0f0; white-space: nowrap; }
+th:hover { background: #e0e0e0; }
+.tooltip-icon { display: inline-block; width: 16px; height: 16px; background: #007bff; color: white; border-radius: 50%; text-align: center; line-height: 16px; font-size: 10px; font-weight: bold; cursor: help; position: relative; }
+.tooltip-icon:hover::after { content: attr(data-tooltip); position: absolute; bottom: 125%; left: 0; background: #333; color: white; padding: 8px 12px; border-radius: 4px; font-size: 11px; white-space: normal; max-width: 250px; width: max-content; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.tooltip-icon:hover::before { content: ''; position: absolute; bottom: 120%; left: 8px; border: 6px solid transparent; border-top-color: #333; z-index: 1000; }
+.hidden { display: none; }
+</style>
 </head>
 <body>
-
-  <h1>Projects</h1>
-
-  <form id="projectForm">
-    <div class="field-row">
-      <label for="projectTitle"><span class="tooltip-icon" data-tooltip="Full name or title of the research project">ⓘ</span> Project Title</label>
-      <input type="text" id="projectTitle" required />
-    </div>
-    <div class="field-row">
-      <label for="acronym"><span class="tooltip-icon" data-tooltip="Short abbreviated form of the project name">ⓘ</span> Acronym</label>
-      <input type="text" id="acronym" />
-    </div>
-    <div class="field-row">
-      <label for="identifier"><span class="tooltip-icon" data-tooltip="Unique identifier or code assigned to the project">ⓘ</span> Identifier</label>
-      <input type="text" id="identifier" />
-    </div>
-    <div class="field-row">
-      <label for="scope"><span class="tooltip-icon" data-tooltip="Geographic or thematic reach: local, national, international">ⓘ</span> Scope</label>
-      <input type="text" id="scope" />
-    </div>
-    <div class="field-row">
-      <label for="status"><span class="tooltip-icon" data-tooltip="Current state: planning, ongoing, completed, published">ⓘ</span> Status</label>
-      <input type="text" id="status" />
-    </div>
-    <div class="field-row">
-      <label for="startDate"><span class="tooltip-icon" data-tooltip="Project initiation date (YYYY-MM-DD)">ⓘ</span> Start date</label>
-      <input type="text" id="startDate" placeholder="YYYY-MM-DD" />
-    </div>
-    <div class="field-row">
-      <label for="endDate"><span class="tooltip-icon" data-tooltip="Project completion or expected end date (YYYY-MM-DD)">ⓘ</span> End date</label>
-      <input type="text" id="endDate" placeholder="YYYY-MM-DD" />
-    </div>
-    <div class="field-row">
-      <label for="siteContext"><span class="tooltip-icon" data-tooltip="Broader geographic or historical context of the site">ⓘ</span> Site Context</label>
-      <input type="text" id="siteContext" />
-    </div>
-    <div class="field-row">
-      <label for="specificSite"><span class="tooltip-icon" data-tooltip="Exact location, archaeological site, or specific study area">ⓘ</span> Specific Site</label>
-      <input type="text" id="specificSite" />
-    </div>
-    <div class="field-row">
-      <label for="temporalRange"><span class="tooltip-icon" data-tooltip="Historical period or chronological range studied">ⓘ</span> Temporal Range</label>
-      <input type="text" id="temporalRange" />
-    </div>
-    <div class="field-row">
-      <label for="organization"><span class="tooltip-icon" data-tooltip="Main institution or organization conducting the project">ⓘ</span> Organization</label>
-      <input type="text" id="organization" />
-    </div>
-    <div class="field-row">
-      <label for="authority"><span class="tooltip-icon" data-tooltip="Governmental or regulatory body overseeing the project">ⓘ</span> Authority</label>
-      <input type="text" id="authority" />
-    </div>
-    <div class="field-row">
-      <label for="responsible"><span class="tooltip-icon" data-tooltip="Lead researcher or project director">ⓘ</span> Responsible</label>
-      <input type="text" id="responsible" />
-    </div>
-    <div class="field-row">
-      <label for="funder"><span class="tooltip-icon" data-tooltip="Organization or source providing financial support">ⓘ</span> Funder</label>
-      <input type="text" id="funder" />
-    </div>
-    <div class="field-row">
-      <label for="field"><span class="tooltip-icon" data-tooltip="Academic discipline or research field (archaeology, history, economics, etc.)">ⓘ</span> Field</label>
-      <input type="text" id="field" />
-    </div>
-    <div class="field-row">
-      <label for="activities"><span class="tooltip-icon" data-tooltip="Main research activities or methodologies employed">ⓘ</span> Activities</label>
-      <input type="text" id="activities" />
-    </div>
-    <div class="field-row">
-      <label for="materialFocus"><span class="tooltip-icon" data-tooltip="Primary objects, artifacts, or subject matter of study">ⓘ</span> Material Focus</label>
-      <input type="text" id="materialFocus" />
-    </div>
-    <div class="field-row">
-      <label for="generatedOutputs"><span class="tooltip-icon" data-tooltip="Deliverables: publications, databases, exhibitions, reports">ⓘ</span> Generated outputs</label>
-      <input type="text" id="generatedOutputs" />
-    </div>
-    <button type="submit">Add project</button>
-  </form>
-
-  <table id="projectsTable">
-    <thead>
-      <tr>
-        <th data-col="projectTitle">Project Title</th>
-        <th data-col="acronym">Acronym</th>
-        <th data-col="identifier">Identifier</th>
-        <th data-col="scope">Scope</th>
-        <th data-col="status">Status</th>
-        <th data-col="startDate">Start date</th>
-        <th data-col="endDate">End date</th>
-        <th data-col="siteContext">Site Context</th>
-        <th data-col="specificSite">Specific Site</th>
-        <th data-col="temporalRange">Temporal Range</th>
-        <th data-col="organization">Organization</th>
-        <th data-col="authority">Authority</th>
-        <th data-col="responsible">Responsible</th>
-        <th data-col="funder">Funder</th>
-        <th data-col="field">Field</th>
-        <th data-col="activities">Activities</th>
-        <th data-col="materialFocus">Material Focus</th>
-        <th data-col="generatedOutputs">Generated outputs</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-
-  <script>
-    const DB_URL = 'https://giovannifranciscomolinaaguirre-bit-projects.firebaseio.com/projects.json';
-    let data = [];
-    const tbody = document.querySelector('#projectsTable tbody');
-    const form = document.getElementById('projectForm');
-
-    async function loadData() {
-      try {
-        const response = await fetch(DB_URL);
-        if (response.ok) {
-          const result = await response.json();
-          data = result || [];
-          renderTable(data);
-        }
-      } catch (e) {
-        console.log('Working offline - data only stored locally');
-      }
-    }
-
-    function renderTable(rows) {
-      tbody.innerHTML = '';
-      rows.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${row.projectTitle || ''}</td>
-          <td>${row.acronym || ''}</td>
-          <td>${row.identifier || ''}</td>
-          <td>${row.scope || ''}</td>
-          <td>${row.status || ''}</td>
-          <td>${row.startDate || ''}</td>
-          <td>${row.endDate || ''}</td>
-          <td>${row.siteContext || ''}</td>
-          <td>${row.specificSite || ''}</td>
-          <td>${row.temporalRange || ''}</td>
-          <td>${row.organization || ''}</td>
-          <td>${row.authority || ''}</td>
-          <td>${row.responsible || ''}</td>
-          <td>${row.funder || ''}</td>
-          <td>${row.field || ''}</td>
-          <td>${row.activities || ''}</td>
-          <td>${row.materialFocus || ''}</td>
-          <td>${row.generatedOutputs || ''}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    let sortState = {};
-
-    function sortBy(columnKey) {
-      const current = sortState[columnKey] === 'asc' ? 'desc' : 'asc';
-      sortState = { [columnKey]: current };
-
-      data.sort((a, b) => {
-        const va = (a[columnKey] ?? '').toString().toLowerCase();
-        const vb = (b[columnKey] ?? '').toString().toLowerCase();
-        if (va < vb) return current === 'asc' ? -1 : 1;
-        if (va > vb) return current === 'asc' ? 1 : -1;
-        return 0;
-      });
-      renderTable(data);
-    }
-
-    document.querySelectorAll('#projectsTable thead th').forEach(th => {
-      th.addEventListener('click', () => {
-        const key = th.getAttribute('data-col');
-        sortBy(key);
-      });
-    });
-
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      const row = {
-        projectTitle: document.getElementById('projectTitle').value.trim(),
-        acronym: document.getElementById('acronym').value.trim(),
-        identifier: document.getElementById('identifier').value.trim(),
-        scope: document.getElementById('scope').value.trim(),
-        status: document.getElementById('status').value.trim(),
-        startDate: document.getElementById('startDate').value.trim(),
-        endDate: document.getElementById('endDate').value.trim(),
-        siteContext: document.getElementById('siteContext').value.trim(),
-        specificSite: document.getElementById('specificSite').value.trim(),
-        temporalRange: document.getElementById('temporalRange').value.trim(),
-        organization: document.getElementById('organization').value.trim(),
-        authority: document.getElementById('authority').value.trim(),
-        responsible: document.getElementById('responsible').value.trim(),
-        funder: document.getElementById('funder').value.trim(),
-        field: document.getElementById('field').value.trim(),
-        activities: document.getElementById('activities').value.trim(),
-        materialFocus: document.getElementById('materialFocus').value.trim(),
-        generatedOutputs: document.getElementById('generatedOutputs').value.trim()
-      };
-
-      if (!row.projectTitle) {
-        alert('Project Title is required.');
-        return;
-      }
-
-      data.push(row);
-      try {
-        await fetch(DB_URL, {
-          method: 'PUT',
-          body: JSON.stringify(data),
-          headers: { 'Content-Type': 'application/json' }
-        });
-      } catch (e) {
-        console.log('Saved locally only');
-      }
-      form.reset();
-      renderTable(data);
-    });
-
-    loadData();
-  </script>
+<h1>Projects</h1>
+<div class="password-section">
+<label>Password: <input type="password" id="passwordInput" placeholder="Enter password to edit" /></label>
+<button onclick="checkPassword()">Unlock Edit Mode</button>
+<span id="passwordStatus"></span>
+</div>
+<form id="projectForm" class="hidden">
+<div class="field-row"><label for="projectTitle"><span class="tooltip-icon" data-tooltip="Full name or title of the research project">ⓘ</span> Project Title</label><input type="text" id="projectTitle" required /></div>
+<div class="field-row"><label for="acronym"><span class="tooltip-icon" data-tooltip="Short abbreviated form of the project name">ⓘ</span> Acronym</label><input type="text" id="acronym" /></div>
+<div class="field-row"><label for="identifier"><span class="tooltip-icon" data-tooltip="Unique identifier or code assigned to the project">ⓘ</span> Identifier</label><input type="text" id="identifier" /></div>
+<div class="field-row"><label for="scope"><span class="tooltip-icon" data-tooltip="Geographic or thematic reach: local, national, international">ⓘ</span> Scope</label><input type="text" id="scope" /></div>
+<div class="field-row"><label for="status"><span class="tooltip-icon" data-tooltip="Current state: planning, ongoing, completed, published">ⓘ</span> Status</label><input type="text" id="status" /></div>
+<div class="field-row"><label for="startDate"><span class="tooltip-icon" data-tooltip="Project initiation date (YYYY-MM-DD)">ⓘ</span> Start date</label><input type="text" id="startDate" placeholder="YYYY-MM-DD" /></div>
+<div class="field-row"><label for="endDate"><span class="tooltip-icon" data-tooltip="Project completion or expected end date (YYYY-MM-DD)">ⓘ</span> End date</label><input type="text" id="endDate" placeholder="YYYY-MM-DD" /></div>
+<div class="field-row"><label for="siteContext"><span class="tooltip-icon" data-tooltip="Broader geographic or historical context of the site">ⓘ</span> Site Context</label><input type="text" id="siteContext" /></div>
+<div class="field-row"><label for="specificSite"><span class="tooltip-icon" data-tooltip="Exact location, archaeological site, or specific study area">ⓘ</span> Specific Site</label><input type="text" id="specificSite" /></div>
+<div class="field-row"><label for="temporalRange"><span class="tooltip-icon" data-tooltip="Historical period or chronological range studied">ⓘ</span> Temporal Range</label><input type="text" id="temporalRange" /></div>
+<div class="field-row"><label for="organization"><span class="tooltip-icon" data-tooltip="Main institution or organization conducting the project">ⓘ</span> Organization</label><input type="text" id="organization" /></div>
+<div class="field-row"><label for="authority"><span class="tooltip-icon" data-tooltip="Governmental or regulatory body overseeing the project">ⓘ</span> Authority</label><input type="text" id="authority" /></div>
+<div class="field-row"><label for="responsible"><span class="tooltip-icon" data-tooltip="Lead researcher or project director">ⓘ</span> Responsible</label><input type="text" id="responsible" /></div>
+<div class="field-row"><label for="funder"><span class="tooltip-icon" data-tooltip="Organization or source providing financial support">ⓘ</span> Funder</label><input type="text" id="funder" /></div>
+<div class="field-row"><label for="field"><span class="tooltip-icon" data-tooltip="Academic discipline or research field (archaeology, history, economics, etc.)">ⓘ</span> Field</label><input type="text" id="field" /></div>
+<div class="field-row"><label for="activities"><span class="tooltip-icon" data-tooltip="Main research activities or methodologies employed">ⓘ</span> Activities</label><input type="text" id="activities" /></div>
+<div class="field-row"><label for="materialFocus"><span class="tooltip-icon" data-tooltip="Primary objects, artifacts, or subject matter of study">ⓘ</span> Material Focus</label><input type="text" id="materialFocus" /></div>
+<div class="field-row"><label for="generatedOutputs"><span class="tooltip-icon" data-tooltip="Deliverables: publications, databases, exhibitions, reports">ⓘ</span> Generated outputs</label><input type="text" id="generatedOutputs" /></div>
+<button type="submit">Add project</button>
+</form>
+<table id="projectsTable"><thead><tr><th data-col="projectTitle">Project Title</th><th data-col="acronym">Acronym</th><th data-col="identifier">Identifier</th><th data-col="scope">Scope</th><th data-col="status">Status</th><th data-col="startDate">Start date</th><th data-col="endDate">End date</th><th data-col="siteContext">Site Context</th><th data-col="specificSite">Specific Site</th><th data-col="temporalRange">Temporal Range</th><th data-col="organization">Organization</th><th data-col="authority">Authority</th><th data-col="responsible">Responsible</th><th data-col="funder">Funder</th><th data-col="field">Field</th><th data-col="activities">Activities</th><th data-col="materialFocus">Material Focus</th><th data-col="generatedOutputs">Generated outputs</th><th class="hidden">Actions</th></tr></thead><tbody></tbody></table>
+<script>
+const PASSWORD = 'research2025';
+let isEditMode = false;
+let data = [];
+let editingIndex = null;
+const tbody = document.querySelector('#projectsTable tbody');
+const form = document.getElementById('projectForm');
+function checkPassword() {
+const input = document.getElementById('passwordInput').value;
+const status = document.getElementById('passwordStatus');
+if (input === PASSWORD) {
+isEditMode = true;
+status.textContent = '\u2713 Edit mode enabled';
+status.style.color = 'green';
+form.classList.remove('hidden');
+document.querySelector('th:last-child').classList.remove('hidden');
+renderTable(data);
+} else {
+status.textContent = '\u2717 Incorrect password';
+status.style.color = 'red';
+}
+}
+function loadData() {
+try {
+const stored = localStorage.getItem('projectsData');
+if (stored) {
+data = JSON.parse(stored);
+renderTable(data);
+}
+} catch (e) {
+console.log('No stored data found');
+}
+}
+function saveData() {
+try {
+localStorage.setItem('projectsData', JSON.stringify(data));
+} catch (e) {
+console.error('Error saving data:', e);
+}
+}
+function renderTable(rows) {
+tbody.innerHTML = '';
+rows.forEach((row, index) => {
+const tr = document.createElement('tr');
+tr.innerHTML = `<td>${row.projectTitle || ''}</td><td>${row.acronym || ''}</td><td>${row.identifier || ''}</td><td>${row.scope || ''}</td><td>${row.status || ''}</td><td>${row.startDate || ''}</td><td>${row.endDate || ''}</td><td>${row.siteContext || ''}</td><td>${row.specificSite || ''}</td><td>${row.temporalRange || ''}</td><td>${row.organization || ''}</td><td>${row.authority || ''}</td><td>${row.responsible || ''}</td><td>${row.funder || ''}</td><td>${row.field || ''}</td><td>${row.activities || ''}</td><td>${row.materialFocus || ''}</td><td>${row.generatedOutputs || ''}</td><td class="${isEditMode ? '' : 'hidden'}"><button class="action-btn edit-btn" onclick="editProject(${index})">Edit</button><button class="action-btn delete-btn" onclick="deleteProject(${index})">Delete</button></td>`;
+tbody.appendChild(tr);
+});
+}
+function editProject(index) {
+if (!isEditMode) return;
+editingIndex = index;
+const project = data[index];
+document.getElementById('projectTitle').value = project.projectTitle || '';
+document.getElementById('acronym').value = project.acronym || '';
+document.getElementById('identifier').value = project.identifier || '';
+document.getElementById('scope').value = project.scope || '';
+document.getElementById('status').value = project.status || '';
+document.getElementById('startDate').value = project.startDate || '';
+document.getElementById('endDate').value = project.endDate || '';
+document.getElementById('siteContext').value = project.siteContext || '';
+document.getElementById('specificSite').value = project.specificSite || '';
+document.getElementById('temporalRange').value = project.temporalRange || '';
+document.getElementById('organization').value = project.organization || '';
+document.getElementById('authority').value = project.authority || '';
+document.getElementById('responsible').value = project.responsible || '';
+document.getElementById('funder').value = project.funder || '';
+document.getElementById('field').value = project.field || '';
+document.getElementById('activities').value = project.activities || '';
+document.getElementById('materialFocus').value = project.materialFocus || '';
+document.getElementById('generatedOutputs').value = project.generatedOutputs || '';
+form.scrollIntoView({ behavior: 'smooth' });
+}
+function deleteProject(index) {
+if (!isEditMode) return;
+if (confirm('Are you sure you want to delete this project?')) {
+data.splice(index, 1);
+saveData();
+renderTable(data);
+}
+}
+let sortState = {};
+function sortBy(columnKey) {
+const current = sortState[columnKey] === 'asc' ? 'desc' : 'asc';
+sortState = { [columnKey]: current };
+data.sort((a, b) => {
+const va = (a[columnKey] ?? '').toString().toLowerCase();
+const vb = (b[columnKey] ?? '').toString().toLowerCase();
+if (va < vb) return current === 'asc' ? -1 : 1;
+if (va > vb) return current === 'asc' ? 1 : -1;
+return 0;
+});
+renderTable(data);
+}
+document.querySelectorAll('#projectsTable thead th').forEach(th => {
+th.addEventListener('click', () => {
+const key = th.getAttribute('data-col');
+if (key) sortBy(key);
+});
+});
+form.addEventListener('submit', async e => {
+e.preventDefault();
+const row = {
+projectTitle: document.getElementById('projectTitle').value.trim(),
+acronym: document.getElementById('acronym').value.trim(),
+identifier: document.getElementById('identifier').value.trim(),
+scope: document.getElementById('scope').value.trim(),
+status: document.getElementById('status').value.trim(),
+startDate: document.getElementById('startDate').value.trim(),
+endDate: document.getElementById('endDate').value.trim(),
+siteContext: document.getElementById('siteContext').value.trim(),
+specificSite: document.getElementById('specificSite').value.trim(),
+temporalRange: document.getElementById('temporalRange').value.trim(),
+organization: document.getElementById('organization').value.trim(),
+authority: document.getElementById('authority').value.trim(),
+responsible: document.getElementById('responsible').value.trim(),
+funder: document.getElementById('funder').value.trim(),
+field: document.getElementById('field').value.trim(),
+activities: document.getElementById('activities').value.trim(),
+materialFocus: document.getElementById('materialFocus').value.trim(),
+generatedOutputs: document.getElementById('generatedOutputs').value.trim()
+};
+if (!row.projectTitle) {
+alert('Project Title is required.');
+return;
+}
+if (editingIndex !== null) {
+data[editingIndex] = row;
+editingIndex = null;
+} else {
+data.push(row);
+}
+saveData();
+form.reset();
+renderTable(data);
+});
+loadData();
+</script>
 </body>
 </html>
