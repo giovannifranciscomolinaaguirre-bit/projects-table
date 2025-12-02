@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Projects Sheet</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { margin-bottom: 10px; }
+    form { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; }
+    .field-row { display: flex; flex-wrap: wrap; margin-bottom: 6px; }
+    .field-row label { width: 160px; font-size: 12px; }
+    .field-row input { flex: 1; min-width: 160px; font-size: 12px; padding: 3px 4px; }
+    button { margin-top: 8px; padding: 6px 10px; }
+    table { border-collapse: collapse; width: 100%; font-size: 12px; }
+    th, td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; }
+    th { cursor: pointer; background: #f0f0f0; white-space: nowrap; }
+    th:hover { background: #e0e0e0; }
+  </style>
+</head>
+<body>
+
+  <h1>Projects</h1>
+
+  <form id="projectForm">
+    <div class="field-row">
+      <label for="projectTitle">Project Title</label>
+      <input type="text" id="projectTitle" required />
+    </div>
+    <div class="field-row">
+      <label for="acronym">Acronym</label>
+      <input type="text" id="acronym" />
+    </div>
+    <div class="field-row">
+      <label for="identifier">Identifier</label>
+      <input type="text" id="identifier" />
+    </div>
+    <div class="field-row">
+      <label for="scope">Scope</label>
+      <input type="text" id="scope" />
+    </div>
+    <div class="field-row">
+      <label for="status">Status</label>
+      <input type="text" id="status" />
+    </div>
+    <div class="field-row">
+      <label for="startDate">Start date</label>
+      <input type="text" id="startDate" placeholder="YYYY-MM-DD" />
+    </div>
+    <div class="field-row">
+      <label for="endDate">End date</label>
+      <input type="text" id="endDate" placeholder="YYYY-MM-DD" />
+    </div>
+    <div class="field-row">
+      <label for="siteContext">Site Context</label>
+      <input type="text" id="siteContext" />
+    </div>
+    <div class="field-row">
+      <label for="specificSite">Specific Site</label>
+      <input type="text" id="specificSite" />
+    </div>
+    <div class="field-row">
+      <label for="temporalRange">Temporal Range</label>
+      <input type="text" id="temporalRange" />
+    </div>
+    <div class="field-row">
+      <label for="organization">Organization</label>
+      <input type="text" id="organization" />
+    </div>
+    <div class="field-row">
+      <label for="authority">Authority</label>
+      <input type="text" id="authority" />
+    </div>
+    <div class="field-row">
+      <label for="responsible">Responsible</label>
+      <input type="text" id="responsible" />
+    </div>
+    <div class="field-row">
+      <label for="funder">Funder</label>
+      <input type="text" id="funder" />
+    </div>
+    <div class="field-row">
+      <label for="field">Field</label>
+      <input type="text" id="field" />
+    </div>
+    <div class="field-row">
+      <label for="activities">Activities</label>
+      <input type="text" id="activities" />
+    </div>
+    <div class="field-row">
+      <label for="materialFocus">Material Focus</label>
+      <input type="text" id="materialFocus" />
+    </div>
+    <div class="field-row">
+      <label for="generatedOutputs">Generated outputs</label>
+      <input type="text" id="generatedOutputs" />
+    </div>
+    <button type="submit">Add project</button>
+  </form>
+
+  <table id="projectsTable">
+    <thead>
+      <tr>
+        <th data-col="projectTitle">Project Title</th>
+        <th data-col="acronym">Acronym</th>
+        <th data-col="identifier">Identifier</th>
+        <th data-col="scope">Scope</th>
+        <th data-col="status">Status</th>
+        <th data-col="startDate">Start date</th>
+        <th data-col="endDate">End date</th>
+        <th data-col="siteContext">Site Context</th>
+        <th data-col="specificSite">Specific Site</th>
+        <th data-col="temporalRange">Temporal Range</th>
+        <th data-col="organization">Organization</th>
+        <th data-col="authority">Authority</th>
+        <th data-col="responsible">Responsible</th>
+        <th data-col="funder">Funder</th>
+        <th data-col="field">Field</th>
+        <th data-col="activities">Activities</th>
+        <th data-col="materialFocus">Material Focus</th>
+        <th data-col="generatedOutputs">Generated outputs</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script>
+    const DB_URL = 'https://giovannifranciscomolinaaguirre-bit-projects.firebaseio.com/projects.json';
+    let data = [];
+    const tbody = document.querySelector('#projectsTable tbody');
+    const form = document.getElementById('projectForm');
+
+    async function loadData() {
+      try {
+        const response = await fetch(DB_URL);
+        if (response.ok) {
+          const result = await response.json();
+          data = result || [];
+          renderTable(data);
+        }
+      } catch (e) {
+        console.log('Working offline - data only stored locally');
+      }
+    }
+
+    function renderTable(rows) {
+      tbody.innerHTML = '';
+      rows.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.projectTitle || ''}</td>
+          <td>${row.acronym || ''}</td>
+          <td>${row.identifier || ''}</td>
+          <td>${row.scope || ''}</td>
+          <td>${row.status || ''}</td>
+          <td>${row.startDate || ''}</td>
+          <td>${row.endDate || ''}</td>
+          <td>${row.siteContext || ''}</td>
+          <td>${row.specificSite || ''}</td>
+          <td>${row.temporalRange || ''}</td>
+          <td>${row.organization || ''}</td>
+          <td>${row.authority || ''}</td>
+          <td>${row.responsible || ''}</td>
+          <td>${row.funder || ''}</td>
+          <td>${row.field || ''}</td>
+          <td>${row.activities || ''}</td>
+          <td>${row.materialFocus || ''}</td>
+          <td>${row.generatedOutputs || ''}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    let sortState = {};
+
+    function sortBy(columnKey) {
+      const current = sortState[columnKey] === 'asc' ? 'desc' : 'asc';
+      sortState = { [columnKey]: current };
+
+      data.sort((a, b) => {
+        const va = (a[columnKey] ?? '').toString().toLowerCase();
+        const vb = (b[columnKey] ?? '').toString().toLowerCase();
+        if (va < vb) return current === 'asc' ? -1 : 1;
+        if (va > vb) return current === 'asc' ? 1 : -1;
+        return 0;
+      });
+      renderTable(data);
+    }
+
+    document.querySelectorAll('#projectsTable thead th').forEach(th => {
+      th.addEventListener('click', () => {
+        const key = th.getAttribute('data-col');
+        sortBy(key);
+      });
+    });
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const row = {
+        projectTitle: document.getElementById('projectTitle').value.trim(),
+        acronym: document.getElementById('acronym').value.trim(),
+        identifier: document.getElementById('identifier').value.trim(),
+        scope: document.getElementById('scope').value.trim(),
+        status: document.getElementById('status').value.trim(),
+        startDate: document.getElementById('startDate').value.trim(),
+        endDate: document.getElementById('endDate').value.trim(),
+        siteContext: document.getElementById('siteContext').value.trim(),
+        specificSite: document.getElementById('specificSite').value.trim(),
+        temporalRange: document.getElementById('temporalRange').value.trim(),
+        organization: document.getElementById('organization').value.trim(),
+        authority: document.getElementById('authority').value.trim(),
+        responsible: document.getElementById('responsible').value.trim(),
+        funder: document.getElementById('funder').value.trim(),
+        field: document.getElementById('field').value.trim(),
+        activities: document.getElementById('activities').value.trim(),
+        materialFocus: document.getElementById('materialFocus').value.trim(),
+        generatedOutputs: document.getElementById('generatedOutputs').value.trim()
+      };
+
+      if (!row.projectTitle) {
+        alert('Project Title is required.');
+        return;
+      }
+
+      data.push(row);
+      try {
+        await fetch(DB_URL, {
+          method: 'PUT',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json' }
+        });
+      } catch (e) {
+        console.log('Saved locally only');
+      }
+      form.reset();
+      renderTable(data);
+    });
+
+    loadData();
+  </script>
+</body>
+</html>
