@@ -88,13 +88,14 @@ async function loadData() {
     console.log('Error loading data from Google Sheets:', e);
   }
 }
-function saveData() {
+async function saveData() {
   try {
-    fetch(GOOGLE_SCRIPT_URL, {
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' }
     });
+        console.log('Data saved successfully to Google Sheets');
   } catch (e) {
     console.error('Error saving data to Google Sheets:', e);
   }
@@ -190,11 +191,11 @@ editingIndex = null;
 } else {
 data.push(row);
 }
-saveData();
+await saveData();
 form.reset();
 renderTable(data);
 });
-loadData();
+  loadData();
 </script>
 </body>
 </html>
